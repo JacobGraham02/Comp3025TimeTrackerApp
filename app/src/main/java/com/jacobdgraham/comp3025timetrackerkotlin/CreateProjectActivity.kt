@@ -28,6 +28,7 @@ class CreateProjectActivity : AppCompatActivity() {
 
                 // Fetch unique id from Firestore for the insertion to collection
                 val uniqueId = databaseInstance.document().getId()
+                project.id = uniqueId
 
                 databaseInstance.document(uniqueId).set(project).addOnSuccessListener {
                     Toast.makeText(this, "Firebase database updated with new project", Toast.LENGTH_LONG).show()
