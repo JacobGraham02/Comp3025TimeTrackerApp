@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "346793407458",
+    "project_id": "timetrackerappkotlin2022",
+    "storage_bucket": "timetrackerappkotlin2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346793407458:android:289f418a48edb874e4ffbb",
+        "android_client_info": {
+          "package_name": "com.jacobdgraham.comp3025timetrackerkotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346793407458-jksiu1r9ui9cskskkik0s44qcuu5uqvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo0weALDRVOPWIUPlzd25wj_2hNrPb2TY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346793407458-jksiu1r9ui9cskskkik0s44qcuu5uqvi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
