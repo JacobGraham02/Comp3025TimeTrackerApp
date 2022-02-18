@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -50,5 +51,12 @@ class CreateProjectActivity : AppCompatActivity() {
                 Toast.makeText(this, "Project name and description must be filled in", Toast.LENGTH_LONG).show()
             }
         }
+
+        val viewModel : ProjectViewModel by viewModels()
+        viewModel.getProjects().observe(this, {
+            for (project in it) {
+                Log.i("Firebase database response", "Inside CreateProjectActivity, project: ${project}")
+            }
+        })
     }
 }
