@@ -55,12 +55,8 @@ class CreateProjectActivity : AppCompatActivity() {
 
         val viewModel : ProjectViewModel by viewModels()
         viewModel.getProjects().observe(this, { projects ->
-            //binding.linearLayout.removeAllViews()
-            for (project in projects) {
-//                var textViewNewProject = TextView(this)
-//                textViewNewProject.text = project.toString()
-//                binding.linearLayout.addView(textViewNewProject)
-            }
+            binding.recyclerView.adapter = ProjectAdapter(this, projects)
+
         })
     }
 }
