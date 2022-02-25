@@ -12,9 +12,11 @@ import com.google.firebase.ktx.Firebase
 class ProjectViewModel : ViewModel() {
     // MutableLiveData means this list of data is mutable, and can change. This list is listening for any changes that occur to any of its elements
     private val projects = MutableLiveData<List<Project>>()
+    private var auth : FirebaseAuth
 
     // Querying a database returns a snapshot: a one-time picture of the database.
     init {
+        auth=Firebase.auth
         val userId = Firebase.auth.currentUser?.uid
 
         var databaseCollection = FirebaseFirestore.getInstance().collection("projects")
@@ -32,6 +34,8 @@ class ProjectViewModel : ViewModel() {
 
                     for (document in documents) {
                         Log.i("Firebase database response", "${document.data}")
+
+                        // Convert the JSON document into a Project object
                         val project = document.toObject(Project::class.java)
                         projectList.add(project)
                     }

@@ -3,6 +3,7 @@ package com.jacobdgraham.comp3025timetrackerkotlin
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.firebase.auth.FirebaseAuth
@@ -53,9 +54,12 @@ class CreateProjectActivity : AppCompatActivity() {
         }
 
         val viewModel : ProjectViewModel by viewModels()
-        viewModel.getProjects().observe(this, {
-            for (project in it) {
-                Log.i("Firebase database response", "Inside CreateProjectActivity, project: ${project}")
+        viewModel.getProjects().observe(this, { projects ->
+            //binding.linearLayout.removeAllViews()
+            for (project in projects) {
+//                var textViewNewProject = TextView(this)
+//                textViewNewProject.text = project.toString()
+//                binding.linearLayout.addView(textViewNewProject)
             }
         })
     }
