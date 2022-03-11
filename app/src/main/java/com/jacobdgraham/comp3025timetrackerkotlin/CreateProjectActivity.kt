@@ -1,5 +1,6 @@
 package com.jacobdgraham.comp3025timetrackerkotlin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.jacobdgraham.comp3025timetrackerkotlin.databinding.ActivityCreateProjectBinding
 
-class CreateProjectActivity : AppCompatActivity() {
+class CreateProjectActivity : AppCompatActivity(), ProjectAdapter.ProjectItemListener {
 
     private lateinit var binding : ActivityCreateProjectBinding
     private lateinit var auth: FirebaseAuth
@@ -55,8 +56,13 @@ class CreateProjectActivity : AppCompatActivity() {
 
         val viewModel : ProjectViewModel by viewModels()
         viewModel.getProjects().observe(this, { projects ->
-            binding.recyclerView.adapter = ProjectAdapter(this, projects)
+            binding.recyclerView.adapter = ProjectAdapter(this, projects, this)
 
         })
+    }
+    override fun projectSelected(project: Project) {
+        var intent = Intent(this, LogTimeActivity::class.java)
+        intent.putExtra("projectId", project.id) // Passing extra information to a new intent
+        startActivity(intent)
     }
 }

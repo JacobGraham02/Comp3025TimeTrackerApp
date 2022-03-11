@@ -3,4 +3,14 @@
     <string name="enter_project_name">Enter project name</string>
     <string name="enter_project_description">Enter project description</string>
     <string name="btnSubmitProject">Submit project to Firebase database</string>
+    <string name="start">Start</string>
+    <string name="finish">Finish</string>
+    <string-array name="categories">
+        <item>Choose Category</item>
+        <item>Research</item>
+        <item>Design</item>
+        <item>Development</item>
+        <item>Testing</item>
+        <item>Other</item>
+    </string-array>
 </resources>

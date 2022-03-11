@@ -9,4 +9,11 @@ data class Project(var projectName: String? = null, var description: String? = n
             "Project is not defined"
         }
     }
+
+    fun addTimeRecord(newRecord: TimeRecord) {
+        if (timeRecords == null) {
+            timeRecords = ArrayList<TimeRecord>()
+        }
+        timeRecords!!.add(newRecord)
+    }
 }

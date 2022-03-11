@@ -10,12 +10,17 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 
 /**
  * Connect and access the elements in the item_project layout file
+ * The purpose of a ProjectAdapter is to make the RecyclerView 'adaptable' and able
+ * to display various Project objects and its corresponding data onto the RecyclerView.
+ * them on the RecyclerView. The ProjectAdapter takes the list of data retrieved from Firebase database and converts that to the specified data type
+ * in Project.
+ *
  */
-class ProjectAdapter(val context: Context, val projectsList: List<Project>) : RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
+class ProjectAdapter(val context: Context, private val projectsList: List<Project>, val itemListener: ProjectItemListener) : RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
 
     inner class ProjectViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        val projectTextView = itemView.findViewById<TextView>(R.id.projectTextView)
-        val descriptionTextView = itemView.findViewById<TextView>(R.id.descriptionTextView)
+        val projectTextView: TextView = itemView.findViewById<TextView>(R.id.projectTextView)
+        val descriptionTextView: TextView = itemView.findViewById<TextView>(R.id.descriptionTextView)
     }
 
     /**
@@ -35,6 +40,9 @@ class ProjectAdapter(val context: Context, val projectsList: List<Project>) : Re
         with (projectViewHolder) {
             projectTextView.text = project.projectName
             descriptionTextView.text = project.description
+            itemView.setOnClickListener {
+                itemListener.projectSelected(project)
+            }
         }
     }
 
@@ -43,5 +51,11 @@ class ProjectAdapter(val context: Context, val projectsList: List<Project>) : Re
      */
     override fun getItemCount(): Int {
         return projectsList.size
+    }
+
+    interface ProjectItemListener {
+        fun projectSelected(project: Project) {
+
+        }
     }
 }
