@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".CreateProjectActivity">
 
+    <include
+        android:id="@+id/toolbarMain"
+        layout="@layout/toolbar_min"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/editTextProjectName"
         android:layout_width="wrap_content"
@@ -30,7 +39,7 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextProjectName" />
+        app:layout_constraintTop_toBottomOf="@id/toolbarMain"/>
 
     <Button
         android:id="@+id/btnPushProjectToDatabase"

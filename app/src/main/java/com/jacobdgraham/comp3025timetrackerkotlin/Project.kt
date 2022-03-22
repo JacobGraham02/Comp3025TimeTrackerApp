@@ -10,10 +10,17 @@ data class Project(var projectName: String? = null, var description: String? = n
         }
     }
 
-    fun addTimeRecord(newRecord: TimeRecord) {
+//    fun addTimeRecord(newRecord: TimeRecord) {
+//        if (timeRecords == null) {
+//            timeRecords = ArrayList<TimeRecord>()
+//        }
+//        timeRecords!!.add(newRecord)
+//    }
+
+    fun addTimeRecord(newTimeRecord: TimeRecord) {
         if (timeRecords == null) {
-            timeRecords = ArrayList<TimeRecord>()
+            timeRecords = ArrayList()
         }
-        timeRecords!!.add(newRecord)
+        timeRecords!!.add(newTimeRecord)
     }
 }

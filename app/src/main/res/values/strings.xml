@@ -5,6 +5,10 @@
     <string name="btnSubmitProject">Submit project to Firebase database</string>
     <string name="start">Start</string>
     <string name="finish">Finish</string>
+    <string name="add_new_project">Add new project</string>
+    <string name="very_project_summary">Very project summary</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="log_time">Log time</string>
     <string-array name="categories">
         <item>Choose Category</item>
         <item>Research</item>

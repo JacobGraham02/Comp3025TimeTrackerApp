@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -34,7 +36,7 @@ class CreateProjectActivity : AppCompatActivity(), ProjectAdapter.ProjectItemLis
                 // Get instance of a Firebase database and connect to an existing collection
                 val databaseInstance = FirebaseFirestore.getInstance().collection("projects")
 
-                val uniqueId = databaseInstance.document().getId()
+                val uniqueId = databaseInstance.document().id
 
                 var userId = auth.currentUser!!.uid
 
@@ -57,9 +59,37 @@ class CreateProjectActivity : AppCompatActivity(), ProjectAdapter.ProjectItemLis
         val viewModel : ProjectViewModel by viewModels()
         viewModel.getProjects().observe(this, { projects ->
             binding.recyclerView.adapter = ProjectAdapter(this, projects, this)
-
         })
+        setSupportActionBar(binding.toolbarMain.toolbar)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_log_time -> {
+                startActivity(Intent(applicationContext, LogTimeActivity::class.java))
+                return true
+            }
+            R.id.action_add_project -> {
+                // startActivity(Intent(applicationContext, CreateProjectActivity::class.java))
+                return true
+            }
+            R.id.action_view_summary -> {
+                // Page to be created
+                return true
+            }
+            R.id.action_edit_profile -> {
+                // Page to be created
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun projectSelected(project: Project) {
         var intent = Intent(this, LogTimeActivity::class.java)
         intent.putExtra("projectId", project.id) // Passing extra information to a new intent
