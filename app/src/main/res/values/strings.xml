@@ -18,4 +18,5 @@
         <item>Other</item>
     </string-array>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="floating_action_button_which_allows_you_to_save_a_start_and_end_time_for_project">Floating action button which allows you to add location to the activity</string>
 </resources>

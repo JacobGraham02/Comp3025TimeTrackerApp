@@ -1,6 +1,9 @@
 package com.jacobdgraham.comp3025timetrackerkotlin
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Timestamp
@@ -15,7 +18,13 @@ class LogTimeActivity : AppCompatActivity() {
         binding = ActivityLogTimeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val projectId = intent.getStringExtra("projectId");
+        val projectId = intent.getStringExtra("projectId")
+
+        if (projectId == null) {
+            Toast.makeText(this, "Select a project to log time", Toast.LENGTH_LONG).show()
+            startActivity(Intent(this, CreateProjectActivity::class.java))
+        }
+
         var project = Project()
         val database = FirebaseFirestore.getInstance().collection("projects")
 
@@ -64,5 +73,40 @@ class LogTimeActivity : AppCompatActivity() {
                 Toast.makeText(this, "Start time and category selected required", Toast.LENGTH_LONG).show()
             }
         }
+
+        binding.floatingActionButton.setOnClickListener {
+            var intent = Intent(this, MapsActivity::class.java)
+            intent.putExtra("projectId", projectId)
+            startActivity(intent)
+        }
+
+        setSupportActionBar(binding.toolbarMain.toolbar)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_log_time -> {
+                startActivity(Intent(applicationContext, LogTimeActivity::class.java))
+                return true
+            }
+            R.id.action_add_project -> {
+                // startActivity(Intent(applicationContext, CreateProjectActivity::class.java))
+                return true
+            }
+            R.id.action_view_summary -> {
+                // Page to be created
+                return true
+            }
+            R.id.action_edit_profile -> {
+                // Page to be created
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

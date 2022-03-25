@@ -1,8 +1,10 @@
 package com.jacobdgraham.comp3025timetrackerkotlin
 
+import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.ActivityCompat
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -20,6 +22,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMaps2Binding
     private lateinit var fusedLocationClient : FusedLocationProviderClient
     private lateinit var lastLocation : Location
+
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,5 +65,34 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setUpMap() {
         mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+
+        // Check if the user granted us permission to access the location of their device which is running the application
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+            return
+        }
+        mMap.isMyLocationEnabled = true
+
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            location?.let { currentLocation ->
+                lastLocation = currentLocation
+                val currentLatLng = LatLng(currentLocation.latitude, currentLocation.longitude)
+                placeMarkerOnMap(currentLatLng)
+            }
+        }
+    }
+
+    private fun placeMarkerOnMap(location: LatLng) {
+        val marker = MarkerOptions().position(location)
+        mMap.addMarker(marker)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
     }
 }
