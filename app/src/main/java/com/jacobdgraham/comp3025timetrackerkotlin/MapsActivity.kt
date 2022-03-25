@@ -1,5 +1,6 @@
 package com.jacobdgraham.comp3025timetrackerkotlin
 
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -9,12 +10,17 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.jacobdgraham.comp3025timetrackerkotlin.databinding.ActivityMaps2Binding
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMaps2Binding
+    private lateinit var fusedLocationClient : FusedLocationProviderClient
+    private lateinit var lastLocation : Location
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +32,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     /**
@@ -40,9 +48,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        // Add a marker at Georgian College, Barrie, and move the camera
+        val location = LatLng(44.41, -79.6683)
+        mMap.addMarker(MarkerOptions().position(location).title("Lakehead University at Georgian College"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12f)) // Up to 22 zoom factor levels
+        mMap.uiSettings.isZoomControlsEnabled = true
+
+        setUpMap()
+    }
+
+    private fun setUpMap() {
+        mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
     }
 }
